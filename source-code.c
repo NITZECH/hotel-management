@@ -1,11 +1,11 @@
+//header files
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
 #include <string.h>
 #include <stdlib.h>
+//delcaring functions
 void header();
-void roombook();
-void cancel();
 void add();
 void feature();
 void menu();
@@ -13,9 +13,10 @@ void delete1();
 void edit();
 void password();
 void searchbyroom();
-void searchname();
+void searchbyname();
 void list();
 void passsword();
+void exit();
 //declaring structure
 struct Customer
 {
@@ -26,13 +27,36 @@ struct Customer
 	char period[10];
 	char arrivaldate[10];
 }s;
-
+//main function
 main()
  {
 	system ("color A");
 	password();
-	getch();
 }
+void exit()
+{
+	system("cls");
+	int k;
+	int o;
+	char name[60]=" THIS PROGRAM IS DEVELOPED BY NITESH DEVKOTA. PAS076BCT019 ";
+	o=strlen(name);
+	for(k=0;k<=16;k++){
+		Sleep(30);
+		printf("\xDB");
+	}
+	for(k=0;k<=o;k++){
+		Sleep(60);
+		printf(" %c",name[k]);
+	}
+	for(k=0;k<=16;k++){
+		Sleep(50);
+		printf("\xDB");
+	}
+	Sleep(900);
+	//used for exiting else this program will run forever
+	exit(0);
+}
+
 //function for header
  void header()
  {
@@ -49,6 +73,7 @@ main()
    printf("\n                       ::                                 ::");
    printf("\n                       ::::::::::::::::::::::::::::::::::::: \n");
  }
+ 
  //function for menu
 void menu()
  {
@@ -57,7 +82,7 @@ void menu()
  	int ch1;
 	char name;
 	printf (" \xDB\xDB\xDB\xDB\xDB   WELCOME TO HOTEL NITZECH INN  \xDB\xDB\xDB\xDB\xDB\xDB\n\\n\n\n");
-	printf (" 1.CHECK IN \n\n2.FEATURES OF ROOMS \n\n\xDB\xDB\xDB\xDB\xD 3.edit \n\n 4.delete 	\n\n\n 5. search by room\n\n 7. view information\n\n\n ");
+	printf (" 1.CHECK IN \n\n\n 2.FEATURES OF ROOMS \n\n\n 3.edit \n\n\n 4.delete\n\n\n 5. search by room\n\n\n 6. View information\n\n\n 7.search by name\n\n\n 8.Exit  \n\n");
 	scanf ("%d",&ch1);
 	switch(ch1)
 	{
@@ -72,12 +97,21 @@ void menu()
 				break;
 				case 4:
 		         delete1();
+		         break;
 		         case 5:
 		              searchbyroom();
+		              break;
 		              case 6:
 		              list();
+		              break;
+		              case 7:
+		              	searchbyname();
+		              	break;
+		              	case 8:
+		              		exit();
+		              		break;
 				deafult:
-					printf ("\n\n\nwrong input enter your choice between 1 and 6\n\n\n");}
+					printf ("\n\n\nwrong input enter your choice between 1 and 7 \n\n\n");}
 					char ch;
 				printf("Press y for menu option:");
 	Sleep(1000);
@@ -251,11 +285,12 @@ void feature()
        	break;
        }
 }
+//function for booking rooms
 void add()
 {header();
 	FILE *f;
 	char test;
-	f=fopen("add.txt","a+");
+	f=fopen("custoomer.txt","a+");
 	if(f==0)
 	{   f=fopen("add.txt","w+");
 		system("cls");
@@ -290,21 +325,24 @@ void add()
 		fwrite(&s,sizeof(s),1,f);
 		fflush(stdin);
 		printf("\n\n1 Room is successfully booked!!");
-		
+		printf ("\n\n\n\n\n PRESS ESC TO END ");
 		test=getche();
 		if(test==27)
+		
 			break;
-				char ch;
+			
+	}
+	fclose(f);
+		char ch;
 				printf("\n\n\n\n Press y for menu option:");
 	Sleep(1000);
 	fflush(stdin);
 	while((ch=getch())=='y'||'Y'){
 		menu();}
 			
-	}
-	fclose(f);
 
 }
+//function fro deleting data ( checking out or modifying) 
 void delete1()
 {header();
 	FILE *f,*t;
@@ -312,7 +350,7 @@ void delete1()
 	char roomnumber[20];
 	if((t=fopen("temp.txt","w"))==NULL)
 	exit(0);
-	if((f=fopen("add.txt","r"))==NULL)
+	if((f=fopen("custoomer.txt","r"))==NULL)
 	exit(0);
 	system("cls");
 	printf("Enter the Room Number of the hotel to be deleted from the database: \n");
@@ -352,14 +390,50 @@ void delete1()
 	while((ch=getch())=='y'||'Y'){
 		menu();}
 }
+//function to search customer detail by room number
+void searchbyname()
+{
+	char cusname[20];
+FILE *f;
+f=fopen("custoomer.txt","rb");
+                    system("cls");
+                    printf("enter the full name of the customer : \n\n\n\n");
+                    scanf("%s",cusname);
+                    while(fread(&s,sizeof(s),1,f))
+                    {
+                        if(strcmp(cusname,s.name)==0)
+                        {
+                        	printf("\n\tRecord Found\n ");
+			                printf("\nRoom Number:\t%s",s.roomnumber);
+			                printf("\nName:\t%s",s.name);
+			                printf("\nAddress:\t%s",s.address);
+			                printf("\nPhone number:\t%s",s.phonenumber);
+			                printf("\nPeriod:\t%s",s.period);
+			                printf("\nArrival date:\t%s",s.arrivaldate);
+			                break;
+                           
+                        }
+                    }
+                    fclose(f);
+                    getch();
+char ch;
+				printf("\n\n\n\n Press y for menu option:");
+	Sleep(1000);
+	fflush(stdin);
+	while((ch=getch())=='y'||'Y'){
+		menu();}
+}
 
+//function to search customer detail by their full name
 void searchbyroom()
 {
 system("cls");
+
+header();
 	FILE *f;
 	char roomnumber[20];
 	int flag=1;
-	f=fopen("add.txt","r+");
+	f=fopen("custoomer.txt","r+");
 	if(f==0)
 		exit(0);
 	fflush(stdin);
@@ -392,7 +466,7 @@ system("cls");
 	while((ch=getch())=='y'||'Y'){
 		menu();}
 }
-
+//function to edit the data of the customer
 void edit()
 {system("cls");
 header();
@@ -400,7 +474,7 @@ header();
 	int k=1;
 	char roomnumber[20];
 	long int size=sizeof(s);
-	if((f=fopen("add.txt","r+"))==NULL)
+	if((f=fopen("custoomer.txt","r+"))==NULL)
 		exit(0);
 	system("cls");
 	printf("Enter Room number of the customer to edit:\n\n");
@@ -434,7 +508,7 @@ header();
 		fclose(f);
 		getch();
 	}else{
-	fclose(f);
+	fclose(f);}
 	printf("\n\n\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!");
 	getch();
 	char ch;
@@ -443,13 +517,13 @@ header();
 	fflush(stdin);
 	while((ch=getch())=='y'||'Y'){
 		menu();}
-}
+
 }
 void list()
 {   header();
 	FILE *f;
 	int i;
-	if((f=fopen("add.txt","r"))==NULL)
+	if((f=fopen("custoomer.txt","r"))==NULL)
 		exit(0);
 	system("cls");
 	printf("ROOM    ");
@@ -457,7 +531,7 @@ void list()
 	printf("\tADDRESS ");
 	printf("\tPHONENUMBER ");
 	printf("\t\t  PERIOD ");
-	printf("\t ARRIVALDATE \n");
+	printf("\t ARRIVALDATE \n\n\n");
 	
 	for(i=0;i<118;i++)
 		printf("-");
@@ -468,7 +542,7 @@ void list()
 		printf("ADDRESS:\t%s\n",s.address);
 		printf("PHONENUMBER:\t%s\n",s.phonenumber);
 		printf("NATIONALITY \n");*/
-		printf("\n%s \t%s \t\t%s \t\t%s \t%s  \t%s  \t     %s  \t  %s",s.roomnumber, s.name , s.address , s.phonenumber ,s.period,  s.arrivaldate);
+		printf("\n%s \t%s \t\t%s \t\t%s \t%s  \t%s  \t  \n\n\n",s.roomnumber, s.name , s.address , s.phonenumber ,s.period,  s.arrivaldate);
 	}
 	printf("\n");
 	for(i=0;i<118;i++)
@@ -484,7 +558,7 @@ void list()
 		menu();}
 }
 
-
+// function to make the program password protected
 void password(void){
 	char passwords[20]={"nitesh"};
 	int j;
