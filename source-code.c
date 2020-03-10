@@ -473,9 +473,7 @@ void edit()
 	FILE *f;
 	int w=1;
 	char roomnumber[20];
-	long int size=sizeof(s);
 	if((f=fopen("custoomer.txt","r+"))==NULL)
-		exit(0);
 	system("cls");
 	printf("Enter Room number of the customer to edit:\n\n");
 	scanf("%s",roomnumber);
@@ -502,7 +500,7 @@ void edit()
 			printf("\nEnter Arrival date :");
 			fflush(stdin);
 			scanf("%s",&s.arrivaldate);
-			fseek(f,size,SEEK_CUR);  //to go to desired position infile
+			fseek(f,-sizeof(s),SEEK_CUR);  //to go to desired position infile
 			fwrite(&s,sizeof(s),1,f);
 			break;
 		}
