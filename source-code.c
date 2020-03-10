@@ -30,7 +30,7 @@ struct Customer
 //main function
 main()
  {
-	system ("color A");
+	system ("color B");
 	password();
 }
 void exit()
@@ -42,7 +42,7 @@ void exit()
 	o=strlen(name);
 	for(k=0;k<=16;k++){
 		Sleep(30);
-		printf("\xDB");
+		printf("\xB2");
 	}
 	for(k=0;k<=o;k++){
 		Sleep(60);
@@ -50,7 +50,7 @@ void exit()
 	}
 	for(k=0;k<=16;k++){
 		Sleep(50);
-		printf("\xDB");
+		printf("\xB2");
 	}
 	Sleep(900);
 	//used for exiting else this program will run forever
@@ -81,8 +81,8 @@ void menu()
     system("cls");
  	int ch1;
 	char name;
-	printf (" \xDB\xDB\xDB\xDB\xDB   WELCOME TO HOTEL NITZECH INN  \xDB\xDB\xDB\xDB\xDB\xDB\n\\n\n\n");
-	printf (" 1.CHECK IN \n\n\n 2.FEATURES OF ROOMS \n\n\n 3.edit \n\n\n 4.delete\n\n\n 5. search by room\n\n\n 6. View information\n\n\n 7.search by name\n\n\n 8.Exit  \n\n");
+	printf (" \xDB\xDB\xDB\xDB\xDB   WELCOME TO HOTEL NITZECH INN  \xDB\xDB\xDB\xDB\xDB\xDB\n\n\n\n");
+	printf (" 1.CHECK IN \n\n\n 2.FEATURES OF ROOMS \n\n\n 3.EDIT RECORDS \n\n\n 4.DELETE RECORDS\n\n\n 5. SEARCH BY ROOM\n\n\n 6. VIEW INFORMATION \n\n\n 7.SEARCH BY NAME \n\n\n 8.EXIT  \n\n");
 	scanf ("%d",&ch1);
 	switch(ch1)
 	{
@@ -98,22 +98,22 @@ void menu()
 				case 4:
 		         delete1();
 		         break;
-		         case 5:
-		              searchbyroom();
-		              break;
-		              case 6:
-		              list();
-		              break;
-		              case 7:
-		              	searchbyname();
-		              	break;
-		              	case 8:
-		              		exit();
-		              		break;
+		              case 5:
+		                     searchbyroom();
+		                     break;
+		                    case 6:
+		                            list();
+		                            break;
+		                            case 7:
+		              	                   searchbyname();
+		                                 	break;
+		                                	case 8:
+		              		                       exit();
+		              		                       break;
 				deafult:
-					printf ("\n\n\nwrong input enter your choice between 1 and 7 \n\n\n");}
+					printf ("\n\n\nWrong input enter your choice between 1 and 8 \n\n\n");}
 					char ch;
-				printf("Press y for menu option:");
+				printf("\n\n\nPress y for menu option:");
 	Sleep(1000);
 	fflush(stdin);
 	while((ch=getch())=='y'||'Y'){
@@ -571,11 +571,11 @@ void password(void){
 	char passwords[20]="nitesh";
 	int j;
 	int z;
-	char name[40]=" ACCESS PROVIDED TO HOTEL STAFF ONLY";
+	char name[40]=" ACCESS PROVIDED TO HOTEL STAFF ONLY ";
 	z=strlen(name);
 	for(j=0;j<=16;j++){
 		Sleep(50);
-		printf("\xDB");
+		printf("\xB2");
 	}
 	for(j=0;j<=z;j++){
 		Sleep(60);
@@ -583,7 +583,7 @@ void password(void){
 	}
 	for(j=0;j<=16;j++){
 		Sleep(50);
-		printf("\xDB");
+		printf("\xB2");
 	}
 	printf("\n\n\n\n\nPassword:");
 	char ch,pass[20];
