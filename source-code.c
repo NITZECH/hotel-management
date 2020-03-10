@@ -368,8 +368,8 @@ void delete1()
 	if(i==1)
 	{       
 		printf("\n\n Records of Customer in this  Room number is not found!!");
-		//remove("E:/file.txt");
-	   //rename("E:/temp.txt","E:/file.txt");
+		//remove("E:/custoomer.txt"); to remove content of og files
+	   //rename("E:/temp.txt","E:/customer.txt"); to rename
 		getch();
 		fclose(f);
 		fclose(t);
@@ -377,8 +377,8 @@ void delete1()
 	}
 	fclose(f);
 	fclose(t);
-	remove("add.txt");
-	rename("temp.txt","add.txt");
+	remove("custoomer.txt");
+	rename("temp.txt","custoomer.txt");
 	printf("\n\nThe Customer is successfully removed....");
 	fclose(f);
 	fclose(t);
@@ -468,57 +468,65 @@ header();
 }
 //function to edit the data of the customer
 void edit()
-{system("cls");
-header();
+{
+	system ("cls");
 	FILE *f;
-	int k=1;
+	int w=1;
 	char roomnumber[20];
 	long int size=sizeof(s);
 	if((f=fopen("custoomer.txt","r+"))==NULL)
 		exit(0);
 	system("cls");
 	printf("Enter Room number of the customer to edit:\n\n");
-	scanf("%[^\n]",roomnumber);
+	scanf("%s",roomnumber);
 	fflush(stdin);
 	while(fread(&s,sizeof(s),1,f)==1)
 	{
 		if(strcmp(s.roomnumber,roomnumber)==0)
 		{
-			k=0;
+			w=0;
 			printf("\nEnter Room Number     :");
 			gets(s.roomnumber);
 			printf("\nEnter Name    :");
 			fflush(stdin);
 			scanf("%s",&s.name);
 			printf("\nEnter Address        :");
+			fflush(stdin);
 			scanf("%s",&s.address);
 			printf("\nEnter Phone number :");
+			fflush(stdin);
 			scanf("%f",&s.phonenumber);
 			printf("\nEnter Period :");
+			fflush(stdin);
 			scanf("%s",&s.period);
 			printf("\nEnter Arrival date :");
+			fflush(stdin);
 			scanf("%s",&s.arrivaldate);
 			fseek(f,size,SEEK_CUR);  //to go to desired position infile
 			fwrite(&s,sizeof(s),1,f);
 			break;
 		}
 	}
-	if(k==1){
+	if(w==1){
 		printf("\n\nTHE RECORD DOESN'T EXIST!!!!");
 		fclose(f);
 		getch();
 	}else{
-	fclose(f);}
+	fclose(f);
 	printf("\n\n\t\tYOUR RECORD IS SUCCESSFULLY EDITED!!!");
 	getch();
+}
+
 	char ch;
 				printf("\n\n\n\n Press y for menu option:");
 	Sleep(1000);
 	fflush(stdin);
 	while((ch=getch())=='y'||'Y'){
 		menu();}
-
 }
+
+
+
 void list()
 {   header();
 	FILE *f;
@@ -541,8 +549,8 @@ void list()
 		printf("NAME:\t%s\n",,s.name);
 		printf("ADDRESS:\t%s\n",s.address);
 		printf("PHONENUMBER:\t%s\n",s.phonenumber);
-		printf("NATIONALITY \n");*/
-		printf("\n%s \t%s \t\t%s \t\t%s \t%s  \t%s  \t  \n\n\n",s.roomnumber, s.name , s.address , s.phonenumber ,s.period,  s.arrivaldate);
+		*/
+		printf("\n%s \t%s \t%s \t%s \t%s  \t%s  \t  \n\n\n",s.roomnumber, s.name , s.address , s.phonenumber ,s.period,  s.arrivaldate);
 	}
 	printf("\n");
 	for(i=0;i<118;i++)
@@ -560,7 +568,7 @@ void list()
 
 // function to make the program password protected
 void password(void){
-	char passwords[20]={"nitesh"};
+	char passwords[20]="nitesh";
 	int j;
 	int z;
 	char name[40]=" ACCESS PROVIDED TO HOTEL STAFF ONLY";
@@ -591,7 +599,7 @@ void password(void){
 			}
 	pass[i]='\0';
 	if(strcmp(pass,passwords)==0){
-		printf("CORRECT PASSWORD.");
+		printf("\n\n\n\n CORRECT PASSWORD.");
 		Sleep(1000);
 		menu();
 	}
